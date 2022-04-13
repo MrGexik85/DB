@@ -1,7 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User, BankAccount } from "../models"
-import { CreateUserDto } from './dto';
+import { BankAccountDto, CreateUserDto } from './dto';
 
 @Injectable()
 export class UserService {
@@ -15,7 +15,30 @@ export class UserService {
             return user
         } catch (e) {
             console.error(e);    
-            throw new BadRequestException('User creation error')
+            throw new BadRequestException({ message: 'User creation error' })
+        }
+    }
+
+    async getUsers() {
+        const users = await this.userModel.findAll({include: {all: true}})
+        return users
+    }
+
+    async setBankAccount(user_uuid: string, bankAccountDto: BankAccountDto) {
+        console.log(user_uuid);
+        const user = await this.userModel.findOne({ where: { id: user_uuid } })
+        if (user) {
+            try {
+                const bank_account = await this.bankAccountModel.create(bankAccountDto)
+                user.bank_account = bank_account
+                user.bankaccount_id = bank_account.id
+                user.save()
+                return { message: "Set bank account info succcessfully" }
+            } catch (e) {
+                throw new NotFoundException({ message: "Validation error" })
+            }
+        } else {
+            throw new NotFoundException({ message: "User not found" })
         }
     }
 }

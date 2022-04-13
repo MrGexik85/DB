@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid"
 
 
 
-@Table({ tableName: "bank_accounts" })
+@Table({ tableName: "bank_accounts", timestamps: false })
 export class BankAccount extends Model<BankAccount> {
     @ApiProperty({ example: "2444833a-e59f-4d7d-8cc0-329acdcdb84a", description: "Уникальный идентификатор записи" })
     @Column({ type: DataType.UUID, primaryKey: true, unique: true, defaultValue: DataType.UUIDV4 })
