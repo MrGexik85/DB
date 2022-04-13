@@ -35,11 +35,12 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+# watch mode (База данных Арсения)
+$ npm run start:sen:dev 
+
+# База данных Семёна
+$ npm run start:sem:dev
 
 # production mode
 $ npm run start:prod
