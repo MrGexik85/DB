@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User, BankAccount } from "../models"
-import { BankAccountDto, CreateUserDto } from './dto';
+import { BankAccountDto, CreateUserDto, UpdateUserDto } from './dto';
 
 @Injectable()
 export class UserService {
@@ -24,6 +24,11 @@ export class UserService {
         return users
     }
 
+    async getUser(user_uuid: string) {
+        const user = await this.userModel.findOne({ where: { id: user_uuid }, include: { all: true }})
+        return user
+    }
+
     async setBankAccount(user_uuid: string, bankAccountDto: BankAccountDto) {
         console.log(user_uuid);
         const user = await this.userModel.findOne({ where: { id: user_uuid } })
@@ -40,5 +45,23 @@ export class UserService {
         } else {
             throw new NotFoundException({ message: "User not found" })
         }
+    }
+
+    async updateUser(user_uuid: string, updateUserDto: UpdateUserDto) {
+        try {
+            await this.userModel.update(updateUserDto, { where: { id: user_uuid } })
+        } catch (e) {
+            throw new BadRequestException({ message: "Failed to update user" })
+        }
+        return { message: "User was updated successfully" }
+    }
+
+    async deleteUser(user_uuid: string) {
+        try {
+            await this.userModel.destroy({ where: { id: user_uuid } })
+        } catch (e) {
+            throw new BadRequestException({ message: "Failed to delete user" })
+        }
+        return { message: "User was deleted successfully" }
     }
 }

@@ -29,6 +29,32 @@ export class CreateUserDto {
     readonly notes: string // Заметки работы с клиентом
 }
 
+export class UpdateUserDto {
+    @ApiProperty({ example: "Центр нюхателей бебру ", description: "Наименование пользователя", required: false })
+    readonly name: string // Наименование
+
+    @ApiProperty({ example: "Санкт-Петербург, улица Красная, 7Б, 36", description: "Адрес пользователя", required: false })
+    readonly address: string // Адрес
+
+    @ApiProperty({ example: "89156427809", description: "Номер телефона пользователя", required: false })
+    readonly phone_number: string // Номер телефона
+
+    @ApiProperty({ example: "+337348325354", description: "Факс (необязательно)", required: false })
+    readonly fax: string // факс
+
+    @ApiProperty({ example: "Иван", description: "Имя пользоватея", required: false })
+    readonly first_name: string // имя
+
+    @ApiProperty({ example: "Иванов", description: "Фамилия пользоватея", required: false })
+    readonly last_name: string // фамилия
+
+    @ApiProperty({ example: "Иванович", description: "Отчество пользоватея (необязательно)", required: false })
+    readonly middle_name: string // Отчество
+
+    @ApiProperty({ example: "Был приведен с сайта example.com, урод тот еще", description: "Заметка о пользователе (необязательно)", required: false })
+    readonly notes: string // Заметки работы с клиентом
+}
+
 export class BankAccountDto {    
     @ApiProperty({ example: "7712345678", description: "ИНН пользователя" })
     inn: string // Инн клиента
