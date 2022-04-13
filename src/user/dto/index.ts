@@ -74,3 +74,23 @@ export class BankAccountDto {
     @ApiProperty({ example: "30101234500000000225", description: "К/C пользователя" })
     cb_account_number: string // Корреспондетский счет
 }
+
+export class UpdateBankAccountDto {
+    @ApiProperty({ example: "7712345678", description: "ИНН пользователя", required: false })
+    inn: string // Инн клиента
+
+    @ApiProperty({ example: "779101001", description: "КПП пользователя", required: false })
+    kpp: string // КПП клиента
+    
+    @ApiProperty({ example: "40702810123450101230", description: "Банковский счет пользователя", required: false })
+    account_number: string // Номер счета
+
+    @ApiProperty({ example: "Московский банк ПАО Сбербанк г. Москва", description: "Регион банка пользователя", required: false })
+    region: string // Регион где открыт счет
+
+    @ApiProperty({ example: "044521234", description: "БИК банка пользователя", required: false })
+    bik: string // БИК банка
+    
+    @ApiProperty({ example: "30101234500000000225", description: "К/C пользователя", required: false })
+    cb_account_number: string // Корреспондетский счет
+}

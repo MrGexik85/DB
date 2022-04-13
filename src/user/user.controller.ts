@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BankAccountDto, CreateUserDto, UpdateUserDto } from './dto';
+import { BankAccountDto, CreateUserDto, UpdateBankAccountDto, UpdateUserDto } from './dto';
 import { UserService } from './user.service';
 import { User } from "../models"
 
@@ -58,5 +58,23 @@ export class UserController {
                    @Body() bankAccountDto: BankAccountDto 
     ) {
         return this.userService.setBankAccount(user_uuid, bankAccountDto)
+    }
+
+    @ApiOperation({ summary: "Обновить банковские реквизиты для пользователя" })
+    @ApiResponse({ status: 200 })
+    @ApiParam({ name: 'user_uuid' })
+    @Patch('updateBankAccount/:user_uuid')
+    updateBankAccount(@Param('user_uuid') user_uuid: string,
+                      @Body() updateBankAccount: UpdateBankAccountDto
+    ) {
+        return this.userService.updateBankAccount(user_uuid, updateBankAccount)
+    } 
+
+    @ApiOperation({ summary: "Удалить банковские реквизиты для пользователя" })
+    @ApiResponse({ status: 200 })
+    @ApiParam({ name: 'user_uuid' })
+    @Delete('deleteBankAccout/:user_uuid')
+    deleteBankAccount(@Param('user_uuid') user_uuid: string) {
+        return this.userService.deleteBankAccount(user_uuid)
     }
 }
