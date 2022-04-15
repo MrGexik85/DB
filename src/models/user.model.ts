@@ -63,8 +63,4 @@ export class User extends Model<User, CreateUser> {
 
     @BelongsTo(() => BankAccount, { onDelete: "SET NULL" })
     bank_account: BankAccount // Связь 1:1 с таблицей 'банковские счета'
-
-    findUsers() {
-        
-    }
 }

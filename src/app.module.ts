@@ -5,6 +5,8 @@ import { SequelizeModule } from "@nestjs/sequelize"
 import { ConfigModule } from "@nestjs/config"
 import { User, BankAccount } from "./models"
 import { UserModule } from './user/user.module';
+import { Supplier } from './models/supplier.model';
+import { SupplierModule } from './supplier/supplier.module';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { UserModule } from './user/user.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [BankAccount, User],
+      models: [BankAccount, User, Supplier],
       autoLoadModels: true
     }),
-    UserModule
+    UserModule,
+    SupplierModule
   ],
   controllers: [AppController],
   providers: [AppService],

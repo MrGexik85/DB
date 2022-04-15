@@ -25,7 +25,7 @@ export class UserService {
     }
 
     async getUser(user_uuid: string) {
-        const user = await this.userModel.findOne({ where: { id: user_uuid }, include: { all: true }})
+        const user = await this.userModel.findOne({ where: { id: user_uuid }, include: { all: true } })
         return user
     }
 
@@ -83,6 +83,7 @@ export class UserService {
         if (user) {
             if (user.bankaccount_id) {
                 await this.bankAccountModel.update(updateBankAccountDto, { where: { id: user.bankaccount_id } })
+                return { message: "Update bank account was successfully" }
             } else {
                 throw new BadRequestException({ message: "User has not bank account yet" })
             }

@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BankAccountDto, CreateUserDto, UpdateBankAccountDto, UpdateUserDto } from './dto';
 import { UserService } from './user.service';
@@ -35,7 +35,7 @@ export class UserController {
     @ApiOperation({ summary: "Обновить данные пользователя" })
     @ApiResponse({ status: 200 })
     @ApiParam({ name: 'user_uuid' })
-    @Patch('/:user_uuid')
+    @Put('/:user_uuid')
     updateUser(@Param('user_uuid') user_uuid: string,
                @Body() updateUserDto: UpdateUserDto
     ) {
@@ -53,7 +53,7 @@ export class UserController {
     @ApiOperation({ summary: 'Установить банковские реквизиты для пользователя' })
     @ApiResponse({ status: 200 })
     @ApiParam({ name: 'user_uuid' })
-    @Patch('setBankInfo/:user_uuid')
+    @Put('setBankInfo/:user_uuid')
     setBankAccount(@Param('user_uuid') user_uuid : string,
                    @Body() bankAccountDto: BankAccountDto 
     ) {
@@ -63,7 +63,7 @@ export class UserController {
     @ApiOperation({ summary: "Обновить банковские реквизиты для пользователя" })
     @ApiResponse({ status: 200 })
     @ApiParam({ name: 'user_uuid' })
-    @Patch('updateBankAccount/:user_uuid')
+    @Put('updateBankAccount/:user_uuid')
     updateBankAccount(@Param('user_uuid') user_uuid: string,
                       @Body() updateBankAccount: UpdateBankAccountDto
     ) {
