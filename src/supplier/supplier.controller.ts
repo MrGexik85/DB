@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Supplier } from 'src/models';
-import { CreateSupplierDto } from './dto';
+import { CreateSupplierDto, UpdateSupplierDto } from './dto';
 import { SupplierService } from './supplier.service';
 
 @ApiTags('suppliers')
@@ -29,5 +29,23 @@ export class SupplierController {
     @Get(':supplier_uuid')
     getSupplier(@Param('supplier_uuid') supplier_uuid: string) {
         return this.supplierService.getSupplier(supplier_uuid)
+    }
+
+    @ApiOperation({ summary: "Обновление данных поставщика" })
+    @ApiResponse({ status: 200 })
+    @ApiParam({ name: 'supplier_uuid' })
+    @Put(':supplier_uuid')
+    updateSupplier(@Param('supplier_uuid') supplier_uuid: string,
+                   @Body() updateSupplierDto: UpdateSupplierDto
+    ) {
+        return this.supplierService.updateSupplier(supplier_uuid, updateSupplierDto)
+    }
+
+    @ApiOperation({ summary: "Удаление данных поставщика" })
+    @ApiResponse({ status: 200 })
+    @ApiParam({ name: 'supplier_uuid' })
+    @Delete(':supplier_uuid')
+    deleteSupplier(@Param('supplier_uuid') supplier_uuid: string) {
+        return this.supplierService.deleteSupplier(supplier_uuid)
     }
 }

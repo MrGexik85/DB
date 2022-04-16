@@ -2,8 +2,14 @@ import { ApiProperty } from "@nestjs/swagger";
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { BankAccount } from "./bank_account.model";
 
+interface CreateSupplier {
+    address: string
+    director: string
+    accountant: string
+}
+
 @Table({ tableName: 'supplier' })
-export class Supplier extends Model {
+export class Supplier extends Model<Supplier, CreateSupplier> {
     @ApiProperty({ example: "2444833a-e59f-4d7d-8cc0-329acdcdb84a", description: "Уникальный идентификатор поставщика" })
     @Column({ type: DataType.UUID, unique: true, primaryKey: true, defaultValue: DataType.UUIDV4 })
     id: string
